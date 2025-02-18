@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dynamic Pricing Based on Device and Battery</title>
+  <style>
+    /* Reset some styles for consistency */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #00b4db, #0083b0);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      padding: 20px;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      padding: 30px;
+      text-align: center;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .container:hover {
+      transform: scale(1.05);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .price {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #28a745;
+      margin-top: 20px;
+      transition: color 0.3s ease;
+    }
+
+    .price.high-battery {
+      color: #28a745;
+    }
+
+    .price.low-battery {
+      color: #ff3b30;
+    }
+
+    .device-info {
+      font-size: 1rem;
+      color: #555;
+      margin-top: 15px;
+      font-style: italic;
+    }
+
+    .battery-info {
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    .battery-level {
+      font-weight: bold;
+    }
+
+    .price-info {
+      margin-top: 30px;
+      font-size: 1.1rem;
+      color: #333;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        width: 90%;
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      .price {
+        font-size: 2rem;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Dynamic Pricing</h1>
+    <p id="priceDisplay" class="price">Loading Price...</p>
+    <p id="deviceInfo" class="device-info">Device Information: Checking...</p>
+    <p id="batteryInfo" class="battery-info">Battery Level: Checking...</p>
+    <p id="priceInfo" class="price-info">Price will be calculated based on your device and battery level.</p>
+  </div>
+
+  <script>
+    function getDeviceInfo() {
+      let price = 0;
+      let deviceInfo = "Unknown Device";
+      const priceDisplay = document.getElementById("priceDisplay");
+      const deviceInfoDisplay = document.getElementById("deviceInfo");
+      const batteryInfoDisplay = document.getElementById("batteryInfo");
+      const priceInfoDisplay = document.getElementById("priceInfo");
+
+      // Detect the device type (iOS or Android)
+      const isIphone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+      const isAndroid = /Android/i.test(navigator.userAgent);
+
+      // Get battery status
+      navigator.getBattery().then(function(battery) {
+        const batteryPercentage = battery.level * 100;
+
+        // Determine price based on device type and battery percentage
+        if (isIphone) {
+          deviceInfo = "Device: iPhone";
+          price = batteryPercentage > 50 ? 190 : 30;
+        } else if (isAndroid) {
+          deviceInfo = "Device: Android";
+          price = batteryPercentage > 50 ? 190 : 30;
+        } else {
+          deviceInfo = "Device: Unknown";
+          price = 50; // Default for unknown devices
+        }
+
+        // Update price display based on battery percentage
+        priceDisplay.textContent = `$${price}`;
+        
+        if (batteryPercentage > 50) {
+          priceDisplay.classList.add("high-battery");
+          priceDisplay.classList.remove("low-battery");
+        } else {
+          priceDisplay.classList.add("low-battery");
+          priceDisplay.classList.remove("high-battery");
+        }
+
+        // Update device and battery information
+        deviceInfoDisplay.textContent = `${deviceInfo}`;
+        batteryInfoDisplay.textContent = `Battery Level: ${batteryPercentage.toFixed(0)}%`;
+
+        // Price info hint
+        priceInfoDisplay.textContent = `Price varies depending on the device and battery level.`;
+      });
+    }
+
+    // Call the function to get the device info and update pricing
+    getDeviceInfo();
+  </script>
+
+</body>
+</html>
