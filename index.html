@@ -70,6 +70,7 @@
     .battery-info {
       font-size: 1.2rem;
       margin-top: 10px;
+      color: #555;
     }
 
     .battery-level {
@@ -128,26 +129,26 @@
       navigator.getBattery().then(function(battery) {
         const batteryPercentage = battery.level * 100;
 
-        // Determine price based on device type and battery percentage
+        // Determine price based on device type and battery percentage (in INR)
         if (isIphone) {
           deviceInfo = "Device: iPhone";
-          price = batteryPercentage > 50 ? 190 : 30;
+          price = batteryPercentage > 50 ? 180 : 250;  // INR prices
         } else if (isAndroid) {
           deviceInfo = "Device: Android";
-          price = batteryPercentage > 50 ? 190 : 30;
+          price = batteryPercentage > 50 ? 120 : 200;  // INR prices
         } else if (isWindows) {
           deviceInfo = "Device: Windows";
-          price = batteryPercentage > 50 ? 100 : 40;
+          price = batteryPercentage > 50 ? 70 : 130;  // INR prices
         } else if (isMac) {
           deviceInfo = "Device: macOS";
-          price = batteryPercentage > 50 ? 120 : 50;
+          price = batteryPercentage > 50 ? 250 : 350;  // INR prices
         } else {
           deviceInfo = "Device: Unknown";
-          price = 50; // Default for unknown devices
+          price = 150; 
         }
 
         // Update price display based on battery percentage
-        priceDisplay.textContent = `$${price}`;
+        priceDisplay.textContent = `₹${price}`;
         
         if (batteryPercentage > 50) {
           priceDisplay.classList.add("high-battery");
@@ -171,4 +172,4 @@
   </script>
 
 </body>
-</html>
+</html>   
