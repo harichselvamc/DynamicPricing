@@ -118,9 +118,11 @@
       const batteryInfoDisplay = document.getElementById("batteryInfo");
       const priceInfoDisplay = document.getElementById("priceInfo");
 
-      // Detect the device type (iOS or Android)
+      // Detect the device type (iOS, Android, Windows, macOS)
       const isIphone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
       const isAndroid = /Android/i.test(navigator.userAgent);
+      const isWindows = /Windows NT/i.test(navigator.userAgent);
+      const isMac = /Macintosh|Mac OS X/i.test(navigator.userAgent);
 
       // Get battery status
       navigator.getBattery().then(function(battery) {
@@ -133,6 +135,12 @@
         } else if (isAndroid) {
           deviceInfo = "Device: Android";
           price = batteryPercentage > 50 ? 190 : 30;
+        } else if (isWindows) {
+          deviceInfo = "Device: Windows";
+          price = batteryPercentage > 50 ? 100 : 40;
+        } else if (isMac) {
+          deviceInfo = "Device: macOS";
+          price = batteryPercentage > 50 ? 120 : 50;
         } else {
           deviceInfo = "Device: Unknown";
           price = 50; // Default for unknown devices
