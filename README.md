@@ -15,16 +15,51 @@ This project dynamically calculates the price of a product or service based on t
 2. **Battery Status**:
    The `navigator.getBattery()` API is used to retrieve the device's battery level. This gives us a percentage value that represents the current battery charge.
 
-3. **Price Calculation**:
-   - The price changes depending on the device type and battery percentage.
-   - If the battery percentage is above 50%, a lower price is applied.
-   - If the battery percentage is 50% or below, a higher price is set.
-   - Price ranges are set for each device type (in INR):
-     - iPhone: ₹180 (high battery) / ₹250 (low battery)
-     - Android: ₹120 (high battery) / ₹200 (low battery)
-     - Windows: ₹70 (high battery) / ₹130 (low battery)
-     - macOS: ₹250 (high battery) / ₹350 (low battery)
-   - For unknown devices, a default price of ₹150 is used.
+# 3. Price Calculation
+
+## Price Calculation Based on Device Type and Battery Percentage (INR)
+
+This system calculates the price of a service based on the **device type** (iPhone, Android, Windows, macOS, or unknown) and the **battery percentage** of the device. The price changes depending on the battery level, where lower prices are applied to devices with higher battery percentages, and higher prices are applied when the battery is lower.
+
+---
+
+## Price Calculation Rules:
+
+### iPhone:
+- If the battery percentage is above 80%: ₹40
+- If the battery percentage is between 61% and 80%: ₹110
+- If the battery percentage is between 41% and 60%: ₹180
+- If the battery percentage is between 21% and 40%: ₹270
+- If the battery percentage is below 20%: ₹360
+
+### Android:
+- If the battery percentage is above 80%: ₹90
+- If the battery percentage is between 61% and 80%: ₹140
+- If the battery percentage is between 41% and 60%: ₹170
+- If the battery percentage is between 21% and 40%: ₹260
+- If the battery percentage is below 20%: ₹350
+
+### Windows:
+- If the battery percentage is above 80%: ₹90
+- If the battery percentage is between 61% and 80%: ₹120
+- If the battery percentage is between 41% and 60%: ₹150
+- If the battery percentage is between 21% and 40%: ₹230
+- If the battery percentage is below 20%: ₹330
+
+### macOS:
+- If the battery percentage is above 80%: ₹40
+- If the battery percentage is between 61% and 80%: ₹70
+- If the battery percentage is between 41% and 60%: ₹138
+- If the battery percentage is between 21% and 40%: ₹220
+- If the battery percentage is below 20%: ₹290
+
+### Unknown Device:
+- If the device is unrecognized, the default price is set to ₹60.
+
+---
+
+This calculation system automatically adjusts the price based on your device's battery level to provide a dynamic and fair pricing model. The lower your battery, the higher the price you will pay!
+
 
 4. **UI and Styling**:
    - The page is styled with a gradient background and a container in the center showing the price, device type, and battery level.
