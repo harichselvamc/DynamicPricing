@@ -133,15 +133,15 @@
         if (isIphone) {
         deviceInfo = "Device: iPhone";
         if (batteryPercentage > 80) {
-            price = 100;  // INR price for 81% to 100% battery
+            price = 40;  // INR price for 81% to 100% battery
         } else if (batteryPercentage > 60) {
-            price = 90;   // INR price for 61% to 80% battery
+            price =110;   // INR price for 61% to 80% battery
         } else if (batteryPercentage > 40) {
-            price = 80;   // INR price for 41% to 60% battery
+            price = 180;   // INR price for 41% to 60% battery
         } else if (batteryPercentage > 20) {
-            price = 70;   // INR price for 21% to 40% battery
+            price = 270;   // INR price for 21% to 40% battery
         } else {
-            price = 60;   // INR price for 0% to 20% battery
+            price = 360;   // INR price for 0% to 20% battery
         }
         } else if (isAndroid) {
         deviceInfo = "Device: Android";
@@ -167,7 +167,7 @@
         } else if (batteryPercentage > 20) {
             price = 230;   // INR price for 21% to 40% battery
         } else {
-            price = 30;   // INR price for 0% to 20% battery
+            price = 330;   // INR price for 0% to 20% battery
         }
         } else if (isMac) {
         deviceInfo = "Device: macOS";
